@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -24,10 +24,10 @@ public class TaskController {
         return tasks;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/tasks", method = RequestMethod.POST, consumes = MediaType.TEXT_PLAIN_VALUE)
-    ResponseEntity<?> add(@RequestBody String task){
+    void add(@RequestBody String task){
         tasks.add(task);
-        return new ResponseEntity(null, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
